@@ -38,8 +38,8 @@ if (! defined('ABSPATH')) {
 }
 
 
-if (!class_exists('CalendarioFeriadosTDF')) {
-    class CalendarioFeriadosTDF
+if (!class_exists('Calendario_Feriados_TDF')) {
+    class Calendario_Feriados_TDF
     {
         public $plugin;
 
@@ -50,7 +50,6 @@ if (!class_exists('CalendarioFeriadosTDF')) {
 
         function activate()
         {
-            // error_log();
             require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-activator.php';
             Calendario_Feriados_TDF_Activator::activate();
         }
@@ -58,12 +57,14 @@ if (!class_exists('CalendarioFeriadosTDF')) {
         function register()
         {
             // add_action('admin_enqueue_scripts', array($this, 'enqueue'));
+            // Add admin dashboard menu entry
             add_action('admin_menu', array($this, 'add_admin_dashboard'));
-            // add_filter('plugin_action_links_$this->plugin', array($this, 'settings_link'));
+            add_filter('plugin_action_links_' . $this->plugin, array($this, 'settings_link'));
         }
 
         public function add_admin_dashboard()
         {
+            error_log('Calendario_Feriados_TDF::add_admin_dashboard()');
             add_menu_page(
                 'Calendario de feriados',
                 'Calendario de feriados',
@@ -77,15 +78,22 @@ if (!class_exists('CalendarioFeriadosTDF')) {
 
         public function get_admin_dashboard_template()
         {
-            require_once plugin_dir_path(__FILE__) . 'templates/admin_dashboard_template.php';
+            require_once plugin_dir_path(__FILE__) . 'templates/admin-dashboard-template.php';
+        }
+
+        public function settings_link($links)
+        {
+            $settings_link = '<a href="admin.php?page=calendario_feriados_tdf_plugin">Settings</a>';
+            array_push($links, $settings_link);
+            return $links;
         }
     }
 
-    $calendarioFeriadosTDF = new CalendarioFeriadosTDF();
-    $calendarioFeriadosTDF->register();
+    $calendario_feriados = new Calendario_Feriados_TDF();
+    $calendario_feriados->register();
 
     // activation
-    register_activation_hook(__FILE__, array($calendarioFeriadosTDF, 'activate'));
+    register_activation_hook(__FILE__, array($calendario_feriados, 'activate'));
 
     // deactivation
     require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-deactivator.php';
