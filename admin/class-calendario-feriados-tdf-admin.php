@@ -64,14 +64,24 @@ class Calendario_Feriados_TDF_Admin
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Stj_Calendario_Feriados_Loader as all of the hooks are defined
+		 * defined in Calendario_Feriados_TDF_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Stj_Calendario_Feriados_Loader will then create the relationship
+		 * The Calendario_Feriados_TDF_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		// wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/stj-calendario-feriados-admin.css', array(), $this->version, 'all');
+		// Load only for this plugin
+		$valid_pages = array(
+			'calendario-feriados-tdf-plugin',
+			'calendario-feriados-tdf-plugin-agregar-nuevo-feriado'
+		);
+		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
+
+		if (in_array($page, $valid_pages)) {
+			// wp_enqueue_style('bootstrap', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), false, 'all');
+			wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/calendario-feriados-tdf-admin.css', array(), $this->version, 'all');
+		}
 	}
 
 	/**
@@ -81,19 +91,51 @@ class Calendario_Feriados_TDF_Admin
 	 */
 	public function enqueue_scripts()
 	{
-
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Stj_Calendario_Feriados_Loader as all of the hooks are defined
+		 * defined in Calendario_Feriados_TDF_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Stj_Calendario_Feriados_Loader will then create the relationship
+		 * The Calendario_Feriados_TDF_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		// wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/stj-calendario-feriados-admin.js', array('jquery'), $this->version, false);
+		// Load only for this plugin
+		$valid_pages = array(
+			'calendario-feriados-tdf-plugin',
+			'calendario-feriados-tdf-plugin-agregar-nuevo-feriado'
+		);
+		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
+
+		if (in_array($page, $valid_pages)) {
+			// wp_enqueue_script('bootstrap', plugin_dir_url(__FILE__) . 'js/bootstrap.min.js', array('jquery'), false, false);
+			wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/calendario-feriados-tdf-admin.js', array('jquery'), $this->version, false);
+		}
+	}
+
+	/**
+	 * The name of the plugin used to uniquely identify it within the context of
+	 * WordPress and to define internationalization functionality.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The name of the plugin.
+	 */
+	public function get_plugin_name()
+	{
+		return $this->plugin_name;
+	}
+
+	/**
+	 * Retrieve the version number of the plugin.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The version number of the plugin.
+	 */
+	public function get_version()
+	{
+		return $this->version;
 	}
 
 	/**

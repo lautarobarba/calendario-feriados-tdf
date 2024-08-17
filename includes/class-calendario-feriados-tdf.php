@@ -58,6 +58,15 @@ class Calendario_Feriados_TDF
     protected $version;
 
     /**
+     * The plugin custom post type.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $post_type    The plugin custom post type.
+     */
+    protected $post_type;
+
+    /**
      * Define the core functionality of the plugin.
      *
      * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -68,12 +77,9 @@ class Calendario_Feriados_TDF
      */
     public function __construct()
     {
-        if (defined('CALENDARIO_FERIADOS_TDF_VERSION')) {
-            $this->version = CALENDARIO_FERIADOS_TDF_VERSION;
-        } else {
-            $this->version = '1.0.0';
-        }
+        $this->version = CALENDARIO_FERIADOS_TDF_VERSION;
         $this->plugin_name = 'calendario-feriados-tdf';
+        $this->post_type = CALENDARIO_FERIADOS_TDF_POST_TYPE;
 
         $this->load_dependencies();
         // $this->set_locale();
@@ -136,8 +142,8 @@ class Calendario_Feriados_TDF
     {
         $plugin_admin = new Calendario_Feriados_TDF_Admin($this->get_plugin_name(), $this->get_version());
 
-        // $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-        // $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
         // Add admin dashboard
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_dashboard');
@@ -174,5 +180,16 @@ class Calendario_Feriados_TDF
     public function get_version()
     {
         return $this->version;
+    }
+
+    /**
+     * Retrieve The plugin custom post type.
+     *
+     * @since     1.0.0
+     * @return    string    The plugin custom post type.
+     */
+    public function get_post_type()
+    {
+        return $this->post_type;
     }
 }

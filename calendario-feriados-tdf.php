@@ -45,13 +45,19 @@ if (! defined('ABSPATH')) {
 define('CALENDARIO_FERIADOS_TDF_VERSION', '1.0.0');
 
 /**
+ * Custom Post type key
+ */
+define('CALENDARIO_FERIADOS_TDF_POST_TYPE', 'feriado_calendario');
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-calendario-feriados-tdf-activator.php
  */
 function activate_calendario_feriados_tdf()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-activator.php';
-    Calendario_Feriados_TDF_Activator::activate();
+    $activator = new Calendario_Feriados_TDF_Activator();
+    $activator->activate();
 }
 
 /**
