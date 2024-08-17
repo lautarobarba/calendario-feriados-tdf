@@ -37,65 +37,72 @@ if (! defined('ABSPATH')) {
     die;
 }
 
+/**
+ * Currently plugin version.
+ * Start at version 1.0.0 and use SemVer - https://semver.org
+ * Rename this for your plugin and update it as you release new versions.
+ */
+define('CALENDARIO_FERIADOS_TDF_VERSION', '1.0.0');
 
-if (!class_exists('Calendario_Feriados_TDF')) {
-    class Calendario_Feriados_TDF
-    {
-        public $plugin;
-
-        function __construct()
-        {
-            $this->plugin = plugin_basename(__FILE__);
-        }
-
-        function activate()
-        {
-            require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-activator.php';
-            Calendario_Feriados_TDF_Activator::activate();
-        }
-
-        function register()
-        {
-            // add_action('admin_enqueue_scripts', array($this, 'enqueue'));
-            // Add admin dashboard menu entry
-            add_action('admin_menu', array($this, 'add_admin_dashboard'));
-            add_filter('plugin_action_links_' . $this->plugin, array($this, 'settings_link'));
-        }
-
-        public function add_admin_dashboard()
-        {
-            error_log('Calendario_Feriados_TDF::add_admin_dashboard()');
-            add_menu_page(
-                'Calendario de feriados',
-                'Calendario de feriados',
-                'manage_options',
-                'calendario_feriados_tdf_plugin',
-                array($this, 'get_admin_dashboard_template'),
-                'dashicons-calendar-alt',
-                25
-            );
-        }
-
-        public function get_admin_dashboard_template()
-        {
-            require_once plugin_dir_path(__FILE__) . 'templates/admin-dashboard-template.php';
-        }
-
-        public function settings_link($links)
-        {
-            $settings_link = '<a href="admin.php?page=calendario_feriados_tdf_plugin">Settings</a>';
-            array_push($links, $settings_link);
-            return $links;
-        }
-    }
-
-    $calendario_feriados = new Calendario_Feriados_TDF();
-    $calendario_feriados->register();
-
-    // activation
-    register_activation_hook(__FILE__, array($calendario_feriados, 'activate'));
-
-    // deactivation
-    require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-deactivator.php';
-    register_deactivation_hook(__FILE__, array('Calendario_Feriados_TDF_Deactivator', 'deactivate'));
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-calendario-feriados-tdf-activator.php
+ */
+function activate_calendario_feriados_tdf()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-activator.php';
+    Calendario_Feriados_TDF_Activator::activate();
 }
+
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-calendario-feriados-tdf-deactivator.php
+ */
+function deactivate_calendario_feriados_tdf()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf-deactivator.php';
+    Calendario_Feriados_TDF_Deactivator::deactivate();
+}
+
+register_activation_hook(__FILE__, 'activate_calendario_feriados_tdf');
+register_deactivation_hook(__FILE__, 'deactivate_calendario_feriados_tdf');
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path(__FILE__) . 'includes/class-calendario-feriados-tdf.php';
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_calendario_feriados_tdf()
+{
+    $plugin = new Calendario_Feriados_TDF();
+    $plugin->run();
+}
+run_calendario_feriados_tdf();
+
+
+
+//     class Calendario_Feriados_TDF
+//     {
+//         function register()
+//         {
+//             add_filter('plugin_action_links_' . $this->plugin, array($this, 'settings_link'));
+//         }
+
+
+//         public function settings_link($links)
+//         {
+//             $settings_link = '<a href="admin.php?page=calendario_feriados_tdf_plugin">Settings</a>';
+//             array_push($links, $settings_link);
+//             return $links;
+//         }
+//     }
