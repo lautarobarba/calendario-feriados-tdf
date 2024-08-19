@@ -2,3 +2,15 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.table-container {
+  background-color: white;
+  padding: 0.5rem;
+  border: solid 1px #e5e5e5;
+  border-radius: 0.2rem;
+  margin-top: 1rem;
+}
+
+.dt-input {
+  min-width: 5rem;
+}

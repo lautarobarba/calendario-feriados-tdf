@@ -6,7 +6,7 @@
     <div id="ajax-response"></div>
 
     <form method="post" name="createferiado" id="createferiado" class="validate" novalidate="novalidate">
-        <input name="action" type="hidden" value="createferiado" />
+        <!-- <input name="action" type="hidden" value="createferiado" /> -->
         <!-- TODO: Falta revisar seguridad -->
 
         <table class="form-table" role="presentation">
@@ -51,10 +51,23 @@
                     <label for="valido_rio_grande">Río Grande</label>
                 </td>
             </tr>
+
+            <tr>
+                <th scope="row">Tipo de feriado</th>
+                <td>
+                    <select name="feriado_tipo" id="feriado_tipo">
+                        <option value="nacional" selected="selected">Feriado nacional</option>
+                        <option value="provincial">Feriado provincial</option>
+                        <option value="local">Feriado local</option>
+                    </select>
+                </td>
+            </tr>
         </table>
 
         <p class="submit">
             <input type="submit" name="createferiado" id="createferiadosub" class="button button-primary" value="Agregar un nuevo feriado" />
         </p>
     </form>
+
+    <button id="test-button">Test ajax call</button>
 </div>

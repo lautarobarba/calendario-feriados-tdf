@@ -45,6 +45,11 @@ if (! defined('ABSPATH')) {
 define('CALENDARIO_FERIADOS_TDF_VERSION', '1.0.0');
 
 /**
+ * Plugin name.
+ */
+define('CALENDARIO_FERIADOS_TDF_PLUGIN_NAME', 'calendario-feriados-tdf');
+
+/**
  * Custom Post type key
  */
 define('CALENDARIO_FERIADOS_TDF_POST_TYPE', 'feriado_calendario');

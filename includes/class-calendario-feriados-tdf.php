@@ -78,7 +78,7 @@ class Calendario_Feriados_TDF
     public function __construct()
     {
         $this->version = CALENDARIO_FERIADOS_TDF_VERSION;
-        $this->plugin_name = 'calendario-feriados-tdf';
+        $this->plugin_name = CALENDARIO_FERIADOS_TDF_PLUGIN_NAME;
         $this->post_type = CALENDARIO_FERIADOS_TDF_POST_TYPE;
 
         $this->load_dependencies();
@@ -140,13 +140,16 @@ class Calendario_Feriados_TDF
      */
     private function define_admin_hooks()
     {
-        $plugin_admin = new Calendario_Feriados_TDF_Admin($this->get_plugin_name(), $this->get_version());
+        $plugin_admin = new Calendario_Feriados_TDF_Admin($this->get_plugin_name(), $this->get_version(), $this->get_post_type());
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
         // Add admin dashboard
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_dashboard');
+
+        // Add ajax handler hook
+        $this->loader->add_action('wp_ajax_calendario_feriado_tdf_create_feriado', $plugin_admin, 'ajax_handler_create_feriado');
     }
 
     /**
