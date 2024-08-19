@@ -100,8 +100,6 @@ function run_calendario_feriados_tdf()
 }
 run_calendario_feriados_tdf();
 
-
-
 //     class Calendario_Feriados_TDF
 //     {
 //         function register()

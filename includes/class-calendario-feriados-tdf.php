@@ -84,6 +84,7 @@ class Calendario_Feriados_TDF
         $this->load_dependencies();
         // $this->set_locale();
         $this->define_admin_hooks();
+        $this->define_api_hooks();
         // $this->define_public_hooks();
     }
 
@@ -123,6 +124,11 @@ class Calendario_Feriados_TDF
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-calendario-feriados-tdf-admin.php';
 
         /**
+         * The class responsible for defining api rest actions.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'api/class-calendario-feriados-tdf-api.php';
+
+        /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
@@ -145,11 +151,31 @@ class Calendario_Feriados_TDF
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
+        // error_log('plugin_action_links_' . $this->plugin_name);
+        // // Add settings links
+        // $this->loader->add_filter('plugin_action_links_' . $this->plugin_name,  $plugin_admin, 'add_settings_link');
+
         // Add admin dashboard
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_dashboard');
 
         // Add ajax handler hook
+        // TODO: sacar esto y reemplazar por api rest
         $this->loader->add_action('wp_ajax_calendario_feriado_tdf_create_feriado', $plugin_admin, 'ajax_handler_create_feriado');
+    }
+
+    /**
+     * Register all of the hooks related to the api rest functionality
+     * of the plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function define_api_hooks()
+    {
+        $plugin_api = new Calendario_Feriados_TDF_Api($this->get_plugin_name(), $this->get_version(), $this->get_post_type());
+
+        // Register REST API routes
+        // $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_dashboard');
     }
 
     /**

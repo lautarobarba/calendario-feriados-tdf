@@ -167,6 +167,19 @@ class Calendario_Feriados_TDF_Admin
 	}
 
 	/**
+	 * Register the settings link in plugin description.
+	 *
+	 * @since    1.0.0
+	 */
+	public function add_settings_link($links)
+	{
+		error_log('Calendario_Feriados_TDF_Admin::add_settings_link()');
+		$settings_link = '<a href="admin.php?page=calendario_feriados_tdf_plugin">Settings</a>';
+		array_push($links, $settings_link);
+		return $links;
+	}
+
+	/**
 	 * Register the dashboard for the admin area.
 	 *
 	 * @since    1.0.0

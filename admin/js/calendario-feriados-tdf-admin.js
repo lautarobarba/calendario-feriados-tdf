@@ -4,7 +4,7 @@
   $(window).load(() => {
     // Setup dataTable
     let dataTable = new DataTable("#feriados_table", {
-      ajax: "/api/list-feriados",
+      // ajax: "/api/list-feriados",
       responsive: true,
       language: {
         search: "Buscar&nbsp;:",
