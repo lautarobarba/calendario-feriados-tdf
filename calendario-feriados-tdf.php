@@ -38,16 +38,16 @@ if (! defined('ABSPATH')) {
 }
 
 /**
+ * Plugin name.
+ */
+define('CALENDARIO_FERIADOS_TDF_PLUGIN_NAME', 'calendario-feriados-tdf');
+
+/**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
 define('CALENDARIO_FERIADOS_TDF_VERSION', '1.0.0');
-
-/**
- * Plugin name.
- */
-define('CALENDARIO_FERIADOS_TDF_PLUGIN_NAME', 'calendario-feriados-tdf');
 
 /**
  * Custom Post type key
@@ -100,6 +100,7 @@ function run_calendario_feriados_tdf()
 }
 run_calendario_feriados_tdf();
 
+// TODO: add setings links to plugin table row
 //     class Calendario_Feriados_TDF
 //     {
 //         function register()

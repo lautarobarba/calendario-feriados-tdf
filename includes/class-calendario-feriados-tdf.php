@@ -77,8 +77,8 @@ class Calendario_Feriados_TDF
      */
     public function __construct()
     {
-        $this->version = CALENDARIO_FERIADOS_TDF_VERSION;
         $this->plugin_name = CALENDARIO_FERIADOS_TDF_PLUGIN_NAME;
+        $this->version = CALENDARIO_FERIADOS_TDF_VERSION;
         $this->post_type = CALENDARIO_FERIADOS_TDF_POST_TYPE;
 
         $this->load_dependencies();
@@ -96,6 +96,7 @@ class Calendario_Feriados_TDF
      * - Calendario_Feriados_TDF_Loader. Orchestrates the hooks of the plugin.
      * - Calendario_Feriados_TDF_i18n. Defines internationalization functionality.
      * - Calendario_Feriados_TDF_Admin. Defines all hooks for the admin area.
+     * - Calendario_Feriados_TDF_Api_Controller. Defines all hooks related to the api rest.
      * - Calendario_Feriados_TDF_Public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
@@ -126,7 +127,7 @@ class Calendario_Feriados_TDF
         /**
          * The class responsible for defining api rest actions.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'api/class-calendario-feriados-tdf-api.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'api/class-calendario-feriados-tdf-api-controller.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
@@ -160,7 +161,7 @@ class Calendario_Feriados_TDF
 
         // Add ajax handler hook
         // TODO: sacar esto y reemplazar por api rest
-        $this->loader->add_action('wp_ajax_calendario_feriado_tdf_create_feriado', $plugin_admin, 'ajax_handler_create_feriado');
+        // $this->loader->add_action('wp_ajax_calendario_feriado_tdf_create_feriado', $plugin_admin, 'ajax_handler_create_feriado');
     }
 
     /**
@@ -172,10 +173,19 @@ class Calendario_Feriados_TDF
      */
     private function define_api_hooks()
     {
-        $plugin_api = new Calendario_Feriados_TDF_Api($this->get_plugin_name(), $this->get_version(), $this->get_post_type());
+        $plugin_api = new Calendario_Feriados_TDF_Api_Controller($this->get_plugin_name(), $this->get_version(), $this->get_post_type());
 
         // Register REST API routes
-        // $this->loader->add_action('admin_menu', $plugin_admin, 'add_admin_dashboard');
+        // Create feriado
+        $this->loader->add_action('rest_api_init', $plugin_api, 'add_create_feriado_route');
+        // Read feriados (plural)
+        $this->loader->add_action('rest_api_init', $plugin_api, 'add_read_feriados_route');
+        // Read feriado (singular)
+        $this->loader->add_action('rest_api_init', $plugin_api, 'add_read_feriado_route');
+        // Update feriado
+        $this->loader->add_action('rest_api_init', $plugin_api, 'add_update_feriado_route');
+        // Delete feriado
+        $this->loader->add_action('rest_api_init', $plugin_api, 'add_delete_feriado_route');
     }
 
     /**

@@ -89,7 +89,7 @@ class Calendario_Feriados_TDF_Admin
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
 		if (in_array($page, $valid_pages)) {
-			wp_enqueue_style('dataTables', plugin_dir_url(__FILE__) . 'css/dataTables.dataTables.css', array(), false, 'all');
+			// wp_enqueue_style('dataTables', plugin_dir_url(__FILE__) . 'css/dataTables.dataTables.css', array(), false, 'all');
 			wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/calendario-feriados-tdf-admin.css', array(), $this->version, 'all');
 		}
 	}
@@ -120,15 +120,15 @@ class Calendario_Feriados_TDF_Admin
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
 		if (in_array($page, $valid_pages)) {
-			wp_enqueue_script('dataTables', plugin_dir_url(__FILE__) . 'js/dataTables.js', array('jquery'), false, false);
+			// wp_enqueue_script('dataTables', plugin_dir_url(__FILE__) . 'js/dataTables.js', array('jquery'), false, false);
 			wp_enqueue_script('micromodal', plugin_dir_url(__FILE__) . 'js/micromodal.min.js', array('jquery'), false, false);
 			wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/calendario-feriados-tdf-admin.js', array('jquery'), $this->version, false);
 
 			// Add global object to js
-			wp_localize_script($this->plugin_name, 'feriado_calendario_global', array(
-				'ajax_url' => admin_url('admin-ajax.php'),
-				'nonce' => wp_create_nonce($this->plugin_name),
-			));
+			// wp_localize_script($this->plugin_name, 'feriado_calendario_global', array(
+			// 	'ajax_url' => admin_url('admin-ajax.php'),
+			// 	'nonce' => wp_create_nonce($this->plugin_name),
+			// ));
 		}
 	}
 
@@ -236,45 +236,45 @@ class Calendario_Feriados_TDF_Admin
 		require_once plugin_dir_path(__FILE__) . 'partials/calendario-feriados-tdf-admin-create-display.php';
 	}
 
-	/**
-	 * Ajax request handler for wp_ajax_calendario_feriado_tdf_create_feriado
-	 *
-	 * @since    1.0.0
-	 */
-	public function ajax_handler_create_feriado()
-	{
-		error_log('Calendario_Feriados_TDF_Admin::ajax_handler_create_feriado()');
+	// /**
+	//  * Ajax request handler for wp_ajax_calendario_feriado_tdf_create_feriado
+	//  *
+	//  * @since    1.0.0
+	//  */
+	// public function ajax_handler_create_feriado()
+	// {
+	// 	error_log('Calendario_Feriados_TDF_Admin::ajax_handler_create_feriado()');
 
-		// Check valid nonce
-		check_ajax_referer($this->plugin_name);
+	// 	// Check valid nonce
+	// 	check_ajax_referer($this->plugin_name);
 
-		// Get new calendario_feriado data
-		$data = array(
-			// 'name' => wp_unslash($_POST['name']),
-			// 'apellido' => wp_unslash($_POST['apellido']),
-			'post_author' => get_current_user_id(),
-			'post_status' => 'publish',
-			'post_type' => $this->post_type,
-			'post_title' => 'San martin',
-			'post_content' => json_encode(
-				array(
-					'name' => 'San martin',
-					'date' => '2023-03-21',
-				)
-			),
-		);
+	// 	// Get new calendario_feriado data
+	// 	$data = array(
+	// 		// 'name' => wp_unslash($_POST['name']),
+	// 		// 'apellido' => wp_unslash($_POST['apellido']),
+	// 		'post_author' => get_current_user_id(),
+	// 		'post_status' => 'publish',
+	// 		'post_type' => $this->post_type,
+	// 		'post_title' => 'San martin',
+	// 		'post_content' => json_encode(
+	// 			array(
+	// 				'name' => 'San martin',
+	// 				'date' => '2023-03-21',
+	// 			)
+	// 		),
+	// 	);
 
-		error_log('Creating new feriado: ' . json_encode($data));
+	// 	error_log('Creating new feriado: ' . json_encode($data));
 
-		$new_feriado_id = wp_insert_post($data, true);
+	// 	$new_feriado_id = wp_insert_post($data, true);
 
-		if ($new_feriado_id !== 0) {
-			wp_send_json_error();
-		} else {
-			wp_send_json($data);
-		}
+	// 	if ($new_feriado_id !== 0) {
+	// 		wp_send_json_error();
+	// 	} else {
+	// 		wp_send_json($data);
+	// 	}
 
-		// Don't forget to stop execution afterward.
-		wp_die();
-	}
+	// 	// Don't forget to stop execution afterward.
+	// 	wp_die();
+	// }
 }
