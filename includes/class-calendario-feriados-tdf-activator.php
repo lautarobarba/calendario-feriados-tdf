@@ -40,12 +40,24 @@ class Calendario_Feriados_TDF_Activator
 	{
 		error_log('Calendario_Feriados_TDF_Activator::activate()');
 
+		// Register custom post type for feriados
 		register_post_type(
 			$this->post_type,
 			array(
 				'labels' => array(
 					'name' => 'Feriados',
 					'singular_name' => 'Feriado',
+					'add_new' => 'Agregar nuevo',
+					'add_new_item' => 'Agregar nuevo feriado',
+					'new_item' => 'Nuevo feriado',
+					'edit_item' => 'Editar feriado',
+					'view_item' => 'Ver feriado',
+					'all_items' => 'Ver feriados',
+					'search_items' => 'Buscar feriados',
+					'not_found' => 'No se encontraron feriados',
+					'filter_items_list' => 'Lista de feriados filtrada',
+					'items_list_navigation' => 'Lista de feriados_??',
+					'items_list' => 'Lista de feriados',
 				),
 				'description' => 'Feriados para el calendario TDF',
 				'public' => false,
@@ -55,6 +67,17 @@ class Calendario_Feriados_TDF_Activator
 				'delete_with_user' => false,
 				'capability_type' => 'post',
 			)
+		);
+
+		// Register custom taxonomy for tipo de feriados
+
+		// Register new role for Cargador de feriados
+		$subscriber_capabilities = get_role('subscriber')->capabilities;
+		// $custom_capabilities = array_merge($author_capabilities, ['carga_feriados' => true]);
+		add_role(
+			'cargador_feriados',
+			'Cargador feriados',
+			$subscriber_capabilities,
 		);
 
 		flush_rewrite_rules();

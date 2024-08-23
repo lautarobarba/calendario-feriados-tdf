@@ -33,6 +33,16 @@ class Calendario_Feriados_TDF_Deactivator
 	public static function deactivate()
 	{
 		error_log('Calendario_Feriados_TDF_Deactivator::deactivate()');
+
+		// Remove role for Cargador de feriados
+		// Update default role to subscriber
+		$users = get_users(['role'    => 'cargador_feriados']);
+		foreach ($users as $user) {
+			$user->set_role('subscriber');
+		}
+		// error_log(json_encode($users));
+		remove_role('cargador_feriados');
+
 		flush_rewrite_rules();
 	}
 }
