@@ -2,6 +2,8 @@
   "use strict";
 
   $(window).load(() => {
+    MicroModal.init();
+
     // // Setup dataTable
     // let dataTable = new DataTable("#feriados_table", {
     //   // ajax: "/api/list-feriados",

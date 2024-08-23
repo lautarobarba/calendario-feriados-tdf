@@ -84,12 +84,13 @@ class Calendario_Feriados_TDF_Admin
 		// Load only for this plugin
 		$valid_pages = array(
 			'calendario-feriados-tdf-plugin',
-			'calendario-feriados-tdf-plugin-agregar-nuevo-feriado'
+			// 'calendario-feriados-tdf-plugin-agregar-nuevo-feriado'
 		);
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
 		if (in_array($page, $valid_pages)) {
 			// wp_enqueue_style('dataTables', plugin_dir_url(__FILE__) . 'css/dataTables.dataTables.css', array(), false, 'all');
+			wp_enqueue_style('micromodal', plugin_dir_url(__FILE__) . 'css/micromodal.css', array(), false, 'all');
 			wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/calendario-feriados-tdf-admin.css', array(), $this->version, 'all');
 		}
 	}
@@ -115,7 +116,7 @@ class Calendario_Feriados_TDF_Admin
 		// Load only for this plugin
 		$valid_pages = array(
 			'calendario-feriados-tdf-plugin',
-			'calendario-feriados-tdf-plugin-agregar-nuevo-feriado'
+			// 'calendario-feriados-tdf-plugin-agregar-nuevo-feriado'
 		);
 		$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : "";
 
