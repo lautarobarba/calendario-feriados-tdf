@@ -191,7 +191,7 @@ class Calendario_Feriados_TDF_Admin
 		add_menu_page(
 			'Calendario de feriados',
 			'Calendario de feriados',
-			'cargador_feriados',
+			'carga_feriados',
 			'calendario-feriados-tdf-plugin',
 			array($this, 'get_admin_dashboard_template'),
 			'dashicons-calendar-alt',
@@ -202,7 +202,7 @@ class Calendario_Feriados_TDF_Admin
 			'calendario-feriados-tdf-plugin',
 			'Todos los feriados',
 			'Todos los feriados',
-			'cargador_feriados',
+			'carga_feriados',
 			'calendario-feriados-tdf-plugin',
 			array($this, 'get_admin_dashboard_template')
 		);
@@ -211,7 +211,7 @@ class Calendario_Feriados_TDF_Admin
 			'calendario-feriados-tdf-plugin',
 			'Agregar nuevo feriado',
 			'Agregar nuevo feriado',
-			'cargador_feriados',
+			'carga_feriados',
 			'calendario-feriados-tdf-plugin-agregar-nuevo-feriado',
 			array($this, 'get_admin_dashboard_create_template')
 		);

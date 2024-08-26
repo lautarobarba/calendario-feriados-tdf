@@ -34,14 +34,17 @@ class Calendario_Feriados_TDF_Deactivator
 	{
 		error_log('Calendario_Feriados_TDF_Deactivator::deactivate()');
 
-		// Remove role for Cargador de feriados
-		// Update default role to subscriber
+		// Remove role for Cargador de feriados and set role to subscriber
 		$users = get_users(['role'    => 'cargador_feriados']);
 		foreach ($users as $user) {
 			$user->set_role('subscriber');
 		}
 		// error_log(json_encode($users));
 		remove_role('cargador_feriados');
+
+		// Remove capability to administrators
+		$role_admin = get_role('administrator');
+		$role_admin->remove_cap('carga_feriados');
 
 		flush_rewrite_rules();
 	}

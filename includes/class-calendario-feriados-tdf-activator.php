@@ -73,12 +73,16 @@ class Calendario_Feriados_TDF_Activator
 
 		// Register new role for Cargador de feriados
 		$subscriber_capabilities = get_role('subscriber')->capabilities;
-		// $custom_capabilities = array_merge($author_capabilities, ['carga_feriados' => true]);
+		$custom_capabilities = array_merge($subscriber_capabilities, ['carga_feriados' => true]);
 		add_role(
 			'cargador_feriados',
 			'Cargador feriados',
-			$subscriber_capabilities,
+			$custom_capabilities,
 		);
+
+		// Add capability to administrators
+		$role_admin = get_role('administrator');
+		$role_admin->add_cap('carga_feriados');
 
 		flush_rewrite_rules();
 	}

@@ -14,3 +14,12 @@
 .dt-input {
   min-width: 5rem;
 }
+
+.form__label {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.form__input {
+  width: 100%;
+}
